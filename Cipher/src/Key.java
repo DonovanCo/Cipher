@@ -21,10 +21,8 @@ public class Key
 				cipherSquare[i][x]=myList.get(x).toString();
 				}
 			String temp = myList.get(i).toString();
-			for(int f = 1; f<myList.size(); f++)
-				{
-				myList.set(f-1, myList.get(f));
-				}
+			myList.remove(myList.get(0));
+			myList.add(temp);
 			myList.set(myList.size()-1, temp);
 			}
 		for(int z = 0; z<cipherSquare.length; z++)
