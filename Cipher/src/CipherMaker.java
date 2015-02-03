@@ -1,17 +1,19 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CipherMaker extends Key
+public class CipherMaker
 	{
 	static String[][] cipherSquare = new String[26][26];
 	static String message;
 	static String myKey;
+	static ArrayList<String> finalProduct = new ArrayList<String>();
 
 	static Scanner file = new Scanner(System.in);
 	
 	public static void main(String[] args)
 		{
 		makeKey();
+		ask();
 
 		}
 	
@@ -58,8 +60,16 @@ public class CipherMaker extends Key
 	public static void encrypt()
 	{
 		myKey = getKey().toLowerCase();
-		message = getMessage().toLowerCase();
+		message = getMessage().toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", ""); 
+		makeEncryption();
 	}
+	
+	public static void decrypt()
+		{
+		myKey = getKey().toLowerCase();
+		message = getMessage().toLowerCase().replaceAll("[^\\p{L}\\p{Nd}]+", ""); 
+		makeDecryption();
+		}
 		
 	
 	public static String getKey()
@@ -72,16 +82,77 @@ public class CipherMaker extends Key
 	public static String getMessage()
 		{
 		System.out.println("Enter in your message without spaces.");
-		String str = file.next();
+		String str = file.nextLine().toLowerCase();
 		return str;
 		}
 	
-	public static String makeEncryption()
+	public static void makeEncryption()
 		{
 		int keyInd = 0;
 		for(int i = 0; i<message.length(); i++)
 			{
-			for(int x  = 0; x<)
+			String singChar = message.substring(i, i+1);
+			String singKey = myKey.substring(keyInd, keyInd+1);
+			for(int x  = 0; x<cipherSquare.length; x++)
+				{
+				for(int j = 0; j<cipherSquare[0].length; j++)
+					{
+					if(cipherSquare[x][0].equals(singKey))
+						{
+						if(cipherSquare[x][j].equals(singChar))
+							{
+							finalProduct.add(cipherSquare[0][j]);
+							}
+						}
+					}
+				}
+			if(keyInd==(myKey.length()-1))
+				{
+				keyInd=keyInd-(myKey.length()-1);
+				}
+			else
+				{
+				keyInd++;
+				}
+			}
+		for(String st : finalProduct)
+			{
+			System.out.print(st.toUpperCase());
+			}
+		}
+	
+	public static void makeDecryption()
+		{
+		int keyInd = 0;
+		for(int i = 0; i<message.length(); i++)
+			{
+			String singChar = message.substring(i, i+1);
+			String singKey = myKey.substring(keyInd, keyInd+1);
+			for(int x  = 0; x<cipherSquare.length; x++)
+				{
+				for(int j = 0; j<cipherSquare[0].length; j++)
+					{
+					if(cipherSquare[x][0].equals(singKey))
+						{
+						if(cipherSquare[0][j].equals(singChar))
+							{
+							finalProduct.add(cipherSquare[x][j]);
+							}
+						}
+					}
+				}
+			if(keyInd==(myKey.length()-1))
+				{
+				keyInd=keyInd-(myKey.length()-1);
+				}
+			else
+				{
+				keyInd++;
+				}
+			}
+		for(String st : finalProduct)
+			{
+			System.out.print(st.toUpperCase());
 			}
 		}
 
