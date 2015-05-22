@@ -81,8 +81,9 @@ public class CipherMaker
 	
 	public static String getMessage()
 		{
+		Scanner file2 = new Scanner(System.in);
 		System.out.println("Enter in your message without spaces.");
-		String str = file.nextLine().toLowerCase();
+		String str = file2.nextLine().toLowerCase();
 		return str;
 		}
 	
